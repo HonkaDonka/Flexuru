@@ -53,4 +53,45 @@ For the MCP73871, we'll be referencing [it's datasheet](https://ww1.microchip.co
 
 We want to charge using USB power, so we pull SEL to GND. This is for battery charging, so CE is pulled to 5V. Pulling PROG2 to high allows us to charge at 500mA, as per the datasheet. We dont actually want an NTC, so we're using a fixed resistor so that charging never gets cut off. 
 
-TBA
+After getting everything wired up and adding a couple decoupling capacitors: 
+
+<img width="733" height="321" alt="image" src="https://github.com/user-attachments/assets/d0e5f774-836e-4e4b-80e6-a14840102f8d" />
+
+(I really hope this doesn't blow up)
+
+### ESP32
+I opted for the ESP32 S3 Mini 1 because of its small footprint and it accomplishes everything I need. To make the schematic, I referenced the [schematic](https://dl.espressif.com/dl/schematics/SCH_ESP32-S3-DEVKITM-1_V1_20210310A.pdf) for its development module. Since this ESP32 has built-in UART, we don't need to do all the USB-UART shenanigans on the schematic. 
+
+<img width="587" height="339" alt="image" src="https://github.com/user-attachments/assets/603b002d-1149-4beb-ab3f-75e4b9c4ced3" />
+
+<img width="514" height="427" alt="image" src="https://github.com/user-attachments/assets/965fbdfe-7e90-4e98-b054-955af4aeb722" />
+
+
+**Time spent this session: 5 hours**
+
+## July 9-10
+I realized I used the wrong footprint for the ESP32 S3 :sob: 
+
+After importing the correct footprint from SnapEDA, I began placing components and wiring them. The current plan is:
+- Crane head: buttons?
+- Wing 1: ESP32 + battery
+- Wing 2: E-ink display
+- LEDs will be at the bottomside of each wing
+
+After doing a bit of research and [referencing other origami PCB projects](https://lindzey.github.io/blog/2019/11/26/origami-butterfly/), I decided to just have exposed pads near each crease such that folding connects the pads and bridges a connection across layers. 
+
+<img width="500" height="600" alt="image" src="https://github.com/user-attachments/assets/b7799d9f-0bb9-408c-bbf9-0acf74a8ee55" />
+
+(This was before I noticed I had the wrong footprint for the ESP32)
+
+A couple hours later: 
+
+<img width="1126" height="533" alt="image" src="https://github.com/user-attachments/assets/44ec28ba-f292-4286-a445-d5b4374b3b59" />
+
+You might notice some of the pads are on B.Cu while some are in F.Cu. Why? If we look at the crease pattern, notice the two different colors of lines. These correspond to mountain and valley folds. 
+
+<img width="380" height="380" alt="image" src="https://github.com/user-attachments/assets/e1997f07-f912-451a-98c8-82285e4c8a1b" />
+
+The pads on the PCB editor correspond to those folds to make sure the pads make contact when completely folded. 
+
+**Time spent this session: 4 hours**
